@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-bitnami
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:sqaisar/argo-vault-sample.git
+    targetRevision: main
+    path: .
+    helm:
+      chart: nginx
+      repoURL: https://charts.bitnami.com/bitnami
+      version: 21.1.23
+      valueFiles:
+        - env/nginx/default.values.yml
+        - env/nginx/values.yml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
