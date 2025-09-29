@@ -1,1 +1,4 @@
 replicaCount: 2
+
+secrets:
+  SOMEVAR: "<path:/v1/secret/data/testapp/sandbox>"
